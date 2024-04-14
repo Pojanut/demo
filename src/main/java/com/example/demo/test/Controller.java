@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
     @GetMapping
     public WelcomeEntity hello() {
-        return new WelcomeEntity("hello world");
+        return new WelcomeEntity("hello world test change");
     }
 }
