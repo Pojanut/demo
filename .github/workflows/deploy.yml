@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build & Deploy
 
 on:
   push:
@@ -11,20 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
         with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-
-      - name: Build & Push Docker image
-        uses: mr-smithers-excellent/docker-build-push@v3
-        with:
-          image: ningxirr/backend_app
-          tags: latest
-          registry: docker.io
-          dockerfile: Dockerfile
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Docker Build and Push to DockerHub
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: ningxirr/boredapp:latest
 
