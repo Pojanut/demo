@@ -1,5 +1,4 @@
-FROM adoptopenjdk/openjdk11:alpine
-EXPOSE 8080
-
-COPY --chown=appuser:appuser target/*.jar spring-action.jar
-ENTRYPOINT ["java","-jar","/spring-action.jar"]
+FROM eclipse-temurin:21
+COPY --chown=appuser:appuser ./target/demo-0.0.1-SNAPSHOT.jar app.jar
+#ENTRYPOINT ["java","-jar","/app.jar"]
+CMD ["java", "-jar", "/app.jar"]
