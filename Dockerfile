@@ -1,6 +1,5 @@
-FROM openjdk:8-jdk-alpine
-WORKDIR /app
+FROM adoptopenjdk/openjdk11:alpine
+EXPOSE 8080
 
-COPY target/*.jar app.jar
-
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+COPY target/*.jar spring-action.jar
+ENTRYPOINT ["java","-jar","/spring-action.jar"]
