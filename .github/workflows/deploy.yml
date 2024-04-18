@@ -5,8 +5,7 @@ on:
       - main
 
 jobs:
-  build-deploy:
-    name: build and deploy spring-api
+  build-deploy-spring:
     runs-on: ubuntu-20.04
     steps:
       - name: checkout code
@@ -31,7 +30,7 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: false
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo2
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo2:latest
 
       - name: login to docker hub
         uses: docker/login-action@v1
@@ -45,4 +44,27 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo2
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/demo2:latest
+
+  deploy-azure:
+    needs: build-deploy-spring
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: 'Run Azure CLI commands'
+        run: |
+          az containerapp up \
+          --name my-container-app \
+          --resource-group my-container-apps \
+          --location centralus \
+          --environment 'my-container-apps' \
+          --image ningxirr/demo2:latest \
+          --target-port 8080 \
+          --ingress external \
+          --query properties.configuration.ingress.fqdn
