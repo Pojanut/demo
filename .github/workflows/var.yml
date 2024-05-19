@@ -21,13 +21,6 @@ jobs:
         env:
           VARS_CONTEXT: ${{ toJson(vars) }}
 
-      - name: view the vars context in dev
-        shell: bash
-        run: echo "VAR_I_NEED=${{ env.VAR_I_NEED }}" >> $GITHUB_ENV
-
-        env:
-          VARS_CONTEXT: ${{ toJson(vars) }}
-
       - name: view the vars context (all environment)
         shell: bash
         run: echo "${{ toJson(env) }}"
