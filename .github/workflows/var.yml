@@ -14,22 +14,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Display GitHub Variables
-        shell: pwsh
-        run: |
-          Write-Output "Displaying GitHub Variables"
-          $envVars = @(
-            "NING1",
-            "NING2",
-            "NING3"
-          )
-          
-          foreach ($envVar in $envVars) {
-              $value = (Get-Item -Path "Env:$envVar").Value
-              Write-Output "$envVar: $value"
-          }
-
+      - name: view the secrets context
+        shell: bash
+        run: echo "$SECRETS_CONTEXT"
         env:
-          MY_VARIABLE1: ${{ secrets.NING1 }}
-          MY_VARIABLE2: ${{ secrets.NING2 }}
-          MY_VARIABLE3: ${{ secrets.NING3 }}
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
