@@ -10,7 +10,7 @@ jobs:
   retrieve-vars:
     runs-on: windows-2019
     environment:
-      name: dev #[Environment Name]
+      name: sit #[Environment Name]
 
     steps:
       - name: Check out repository
