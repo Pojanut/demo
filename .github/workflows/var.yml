@@ -16,27 +16,32 @@ jobs:
 
       - name: view the vars context
         shell: bash
-        run: |
-          echo "$VARS_CONTEXT"
-          echo "variable_name=variable_value" >> $GITHUB_ENV
+        run: echo "$VARS_CONTEXT"
 
         env:
           VARS_CONTEXT: ${{ toJson(vars) }}
 
-      - name: Set environment variables
-        run: |
-          echo "MY_DEV=dev" >> $GITHUB_ENV
-          echo "MY_SIT=sit" >> $GITHUB_ENV
+      - name: view the vars context in dev
+        shell: bash
+        run: echo "MY_DEV=dev" >> $GITHUB_ENV
 
-      - name: View environment variables
-        run: |
-          echo "MY_DEV: $MY_DEV"
-          echo "MY_SIT: $MY_SIT"
-          echo "PATH: $PATH"
-          echo "RUNNER_OS: $RUNNER_OS"
         env:
-          MY_VAR: ${{ env.MY_DEV }}
-          MY_SIT: ${{ env.MY_SIT }}
+          VARS_CONTEXT: ${{ toJson(env.MY_DEV.vars) }}
 
-      - name: Print all environment variables
-        run: printenv
+#      - name: Set environment variables
+#        run: |
+#          echo "MY_DEV=dev" >> $GITHUB_ENV
+#          echo "MY_SIT=sit" >> $GITHUB_ENV
+#
+#      - name: View environment variables
+#        run: |
+#          echo "MY_DEV: $MY_DEV"
+#          echo "MY_SIT: $MY_SIT"
+#          echo "PATH: $PATH"
+#          echo "RUNNER_OS: $RUNNER_OS"
+#        env:
+#          MY_VAR: ${{ env.MY_DEV }}
+#          MY_SIT: ${{ env.MY_SIT }}
+#
+#      - name: Print all environment variables
+#        run: printenv
