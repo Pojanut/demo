@@ -29,6 +29,7 @@ jobs:
           VARS_CONTEXT: ${{ toJson(vars) }}
 
       - name: Dump vars context
+        if: github.ref == 'refs/heads/dev'
         env:
           VARS_JSON: ${{ toJSON(vars) }}
         run: echo "${VARS_JSON}"
