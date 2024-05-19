@@ -1,4 +1,4 @@
-name: Print Variable
+name: Retrieve GitHub Variables
 
 on:
   push:
@@ -7,20 +7,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  example-job:
+  retrieve-vars:
     runs-on: windows-2019
 
-    env:
-      VAR1: ning1
-      VAR2: ning2
-      VAR3: ning3
-
     steps:
-      - name: Checkout code
+      - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Loop through environment variables
+      - name: Display GitHub Variables
+        shell: pwsh
         run: |
-          for /f "tokens=1,* delims==" %%G in ('set') do (
-            echo %%G=%%H
+          Write-Output "Displaying GitHub Variables"
+          $envVars = @(
+            "NING1",
+            "NING2",
+            "NING3"
           )
+          
+          foreach ($envVar in $envVars) {
+            $value = $env:$envVar
+            Write-Output "$envVar: $value"
+          }
+
+        env:
+          MY_VARIABLE1: ${{ secrets.NING1 }}
+          MY_VARIABLE2: ${{ secrets.NING2 }}
+          MY_VARIABLE3: ${{ secrets.NING3 }}
