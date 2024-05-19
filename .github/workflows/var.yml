@@ -25,7 +25,7 @@ jobs:
           )
           
           foreach ($envVar in $envVars) {
-            $value = $env:$envVar
+            $value = ${env:$envVar}
             Write-Output "$envVar: $value"
           }
 
