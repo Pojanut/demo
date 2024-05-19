@@ -14,8 +14,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: view the secrets context
+      - name: view the vars context
         shell: bash
-        run: echo "$SECRETS_CONTEXT"
+        run: echo "$VARS_CONTEXT"
         env:
-          SECRETS_CONTEXT: ${{ toJson(vars) }}
+          VARS_CONTEXT: ${{ toJson(vars) }}
