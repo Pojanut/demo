@@ -9,8 +9,8 @@ on:
 jobs:
   retrieve-vars:
     runs-on: windows-2019
-    env:
-      Envi: dev
+    environment:
+      name: dev #[Environment Name]
 
     steps:
       - name: Check out repository
@@ -28,4 +28,4 @@ jobs:
         run: echo "$VARS_CONTEXT"
 
         env:
-          VARS_CONTEXT: ${{ toJson( ${{ Envi }} ) }}
+          VARS_CONTEXT: ${{ toJson(vars) }}
