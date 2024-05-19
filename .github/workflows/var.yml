@@ -19,11 +19,11 @@ jobs:
         run: echo "$VARS_CONTEXT"
 
         env:
-          VARS_CONTEXT: ${{ toJson(env.dev.vars) }}
+          VARS_CONTEXT: ${{ toJson(vars) }}
 
       - name: view the vars context dev
         shell: bash
         run: echo "$VARS_CONTEXT"
 
         env:
-          VARS_CONTEXT: ${{ toJson(env.dev.vars) }}
+          VARS_CONTEXT: ${{ toJson(env) }}
