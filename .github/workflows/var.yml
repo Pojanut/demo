@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  Envi: dev
+
 jobs:
   retrieve-vars:
     runs-on: windows-2019
@@ -26,4 +29,4 @@ jobs:
         run: echo "$VARS_CONTEXT"
 
         env:
-          VARS_CONTEXT: ${{ toJson(env) }}
+          VARS_CONTEXT: ${{ toJson( ${{ Envi }} ) }}
