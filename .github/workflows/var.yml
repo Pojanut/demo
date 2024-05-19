@@ -26,7 +26,14 @@ jobs:
         run: echo "MY_DEV=dev" >> $GITHUB_ENV
 
         env:
-          VARS_CONTEXT: ${{ toJson(env.MY_DEV.vars) }}
+          VARS_CONTEXT: ${{ toJson(vars) }}
+
+      - name: Print all environment variables
+        run: |
+          echo "Environment Variables:"
+          printenv
+          echo "Context Variables:"
+          echo '${{ toJson(env) }}'
 
 #      - name: Set environment variables
 #        run: |
