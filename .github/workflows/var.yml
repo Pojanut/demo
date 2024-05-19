@@ -1,0 +1,26 @@
+name: Example Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  example-job:
+    runs-on: windows-2019
+
+    env:
+      VAR1: ning1
+      VAR2: ning2
+      VAR3: ning3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Loop through all environment variables
+        run: |
+          set | findstr /r "^VAR.*=" | foreach-object {
+            Write-Host $_
+          }
