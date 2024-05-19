@@ -25,8 +25,8 @@ jobs:
           )
           
           foreach ($envVar in $envVars) {
-            $value = ${env:$envVar}
-            Write-Output "$envVar: $($value)"
+              $value = (Get-Item -Path "Env:$envVar").Value
+              Write-Output "$envVar: $value"
           }
 
         env:
