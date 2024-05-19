@@ -1,4 +1,4 @@
-name: Example Workflow
+name: Print Variable
 
 on:
   push:
@@ -19,8 +19,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Loop through all environment variables
+      - name: Loop through environment variables
         run: |
-          set | findstr /r "^VAR.*=" | foreach-object {
-            Write-Host $_
-          }
+          for /f "tokens=1,* delims==" %%G in ('set') do (
+            echo %%G=%%H
+          )
