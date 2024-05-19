@@ -23,17 +23,15 @@ jobs:
 
       - name: view the vars context in dev
         shell: bash
-        run: echo "MY_DEV=dev" >> $GITHUB_ENV
+        run: echo "$VARS_DEV"
 
         env:
           VARS_CONTEXT: ${{ toJson(vars) }}
 
-      - name: Print all environment variables
-        run: |
-          echo "Environment Variables:"
-          printenv
-          echo "Context Variables:"
-          echo '${{ toJson(env) }}'
+      - name: Dump vars context
+        env:
+          VARS_JSON: ${{ toJSON(vars) }}
+        run: echo "${VARS_JSON}"
 
 #      - name: Set environment variables
 #        run: |
